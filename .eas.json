@@ -1,0 +1,56 @@
+{
+  "cli": {
+    "version": ">= 5.0.0",
+    "appVersionSource": "remote"
+  },
+
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "ios":     { "simulator": true },
+      "env": { "EXPO_PUBLIC_API_URL": "https://staging.api.morpheusecho.com" }
+    },
+
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "autoIncrement": "version",
+      "android": { "buildType": "app-bundle" },
+      "ios":     { "enterpriseProvisioning": "adhoc" }, 
+      "env": { "EXPO_PUBLIC_API_URL": "https://preview.api.morpheusecho.com" }
+    },
+
+    "production": {
+      "distribution": "store",
+      "channel": "production",
+      "autoIncrement": true, 
+      "android": { "buildType": "app-bundle" },
+      "ios":     {},
+      "resourceClass": "medium",
+      "env": { "EXPO_PUBLIC_API_URL": "https://api.morpheusecho.com" },
+      "hooks": {
+        "postPublish": [
+          {
+            "file": "scripts/sentry-upload-sourcemaps.sh",
+            "config": { "authToken": "$SENTRY_AUTH_TOKEN" }
+          }
+        ]
+      }
+    }
+  },
+
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-play-key.json",
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "ios@company.com",
+        "ascAppId": "6481234567"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    /* ✔ Mantienes la misma target que RN 0.79 (ES2021) */
+    "target": "es2021",
+
+    /* ✔ Resolución de módulos estilo Node */
+    "moduleResolution": "node",
+
+    /* ✔ JSX automático (React 19) */
+    "jsx": "react-jsx",
+
+    /* ⚙️ Ajustes de calidad de vida */
+    "strict": true,
+    "noEmit": true,                    // 👉 Evita que tsc genere archivos .js
+    "skipLibCheck": true,              // ya lo tenías, acelera builds grandes
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,           // evita errores con libs CommonJS
+
+    /* ✨ Alias al estilo @/…  */
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] },
+
+    /* 🛠️ Tipos globales */
+    "types": ["jest", "react-native"],
+
+    /* 📚 Si importas .json (config locales, mocks) */
+    "resolveJsonModule": true,
+
+    /* ⚠️ Con React 19 + RN 0.79, esta lib evita quejarse por Promise.allSettled */
+    "lib": ["es2021"],
+
+    /* 🪄 Helps IDEs con rutas en expo/prebuild */
+    "rootDirs": ["./", "node_modules"]
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",            // opcional, evita que lo analice
+    "ios",
+    "android",
+    "web-build"
+  ]
+}

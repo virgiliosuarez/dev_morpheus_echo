@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mobile:
+    platform: ${DOCKERPLATFORM:-linux/amd64}
+    container_name: morpheus_echo_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - .:/app:cached
+      - /app/node_modules
+      - ~/.expo:/home/expo/.expo
+      - ~/.npm:/home/expo/.npm
+      - metro-cache:/home/expo/.cache/metro   # 🚀 mantiene el bundler cache
+
+    ports:
+      - "8081:8081"
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+
+    env_file: .env
+    environment:
+      EXPO_DEVTOOLS_LISTEN_ADDRESS: "0.0.0.0"
+      NODE_ENV: development
+
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+volumes:
+  metro-cache: {}         # ← declaración del volumen nombrado

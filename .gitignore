@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Expo / React Native
+.expo/
+.expo-shared/
+web-build/
+dist/
+
+# Native
+android/
+ios/
+*.keystore
+
+# Env & secrets
+.env
+google-play-key.json
